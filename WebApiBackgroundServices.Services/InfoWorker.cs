@@ -6,13 +6,13 @@ namespace WebApiBackgroundServices.Services
     {
         private int executionCount = 0;
         private Timer _timer = null!;
-        private string message = "Mensagem Inicial....";
+        private string _message = "Mensagem Inicial....";
 
         public Task StartAsync(CancellationToken cancellationToken)
         {
             Console.WriteLine($"Process Started {nameof(InfoWorker)} !!!");
 
-            _timer = new Timer(DoWork, null, TimeSpan.Zero,
+            _timer = new Timer(DoWork, null, TimeSpan.FromSeconds(5),
             TimeSpan.FromSeconds(1));
 
             return Task.CompletedTask;
@@ -20,7 +20,7 @@ namespace WebApiBackgroundServices.Services
 
         private void DoWork(object? state)
         {
-            Console.WriteLine(message);
+            Console.WriteLine($"{DateTime.Now:o} =>{_message}");
         }
 
         public Task StopAsync(CancellationToken cancellationToken)
